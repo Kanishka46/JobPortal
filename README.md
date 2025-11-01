@@ -1,69 +1,72 @@
-JobPortal
+🏆 Smart Job Portal Platform
 
-A clean, modern job portal built with React. JobPortal lets job seekers browse and apply to jobs, and enables employers to post openings and manage applicants. Designed for clarity, accessibility, and fast developer iteration.
+CareerConnect is a modern and intuitive Job Portal platform designed to connect job seekers with employers efficiently.
+It streamlines the recruitment process with features like smart job listings, user profiles, job applications, and company dashboards.
 
-#Key features
+💡 Problem Statement
 
-Browse paginated job listings with keyword, location, and category filters
+Traditional job application processes are slow, scattered across multiple channels, and lack structured profiles and real-time communication.
+Job seekers struggle to find relevant jobs, and employers face difficulty in filtering qualified candidates.
 
-Job detail pages with company profile, role description, responsibilities and requirements
+CareerConnect solves this by offering a clean, centralized, and interactive job hunting & recruitment experience with a modern UI and smooth workflows.
 
-Candidate application flow (resume upload, cover letter, track application status)
+🚀 Features
+👨‍💻 For Job Seekers
 
-Employer dashboard: post jobs, view applicants, shortlist / reject candidates
+✅ Create profile & upload resume
+✅ Browse & search jobs by category, location, and company
+✅ Save jobs & Apply instantly
+✅ Track application status
+✅ Personalized dashboard
 
-User authentication (signup/login) with role-based UI (jobseeker / employer)
+🏢 For Employers
 
-Responsive layout (mobile-first) and accessible components
+✅ Company dashboard
+✅ Post & manage job listings
+✅ View applicants & shortlist candidates
+✅ Manage company profile
 
-Client-side form validation and graceful error handling
+🌐 Platform Features
 
-Demo seed data & easy mock API integration (REST or JSON-server)
+✅ Secure login & authentication (Job Seeker / Employer)
+✅ Modern UI with responsive design
+✅ Role-based navigation UI
+✅ Job filtering, categories & search
+✅ Resume preview support
+✅ Notifications / status updates UI
+✅ Scalable for startups, enterprises & recruitment agencies
 
-Tech stack
+🧠 Tech Stack
+Layer	Technology
+Frontend	React + Vite
+Styling	Tailwind CSS + shadcn/ui
+Routing	React Router DOM
+State Management	Context API
+API Calls	Axios
+Hosting	Netlify / Vercel
 
-Frontend: React (functional components + hooks)
+Backend content removed as requested ✅
 
-Routing: react-router
+📂 Folder Structure (Frontend)
+src/
+ ┣ components/
+ ┣ pages/
+ ┣ context/
+ ┣ hooks/
+ ┣ services/
+ ┣ assets/
+ ┗ main.jsx
 
-State: Context API or Redux (configurable)
+📸 UI Highlights
 
-UI: Component library of your choice (Tailwind CSS, Material-UI, or plain CSS)
+✨ Modern clean UI
+📱 Fully responsive (mobile-first)
+🎨 Tailwind + shadcn components
 
-Mock API: json-server or a simple Express backend for demo
+🚧 Future Enhancements
 
-File uploads: client-side handling with multipart to backend or cloud storage
-
-Getting started (developer)
-# clone
-git clone https://github.com/<your-username>/jobportal.git
-cd jobportal
-
-# install
-npm install
-
-# run (with mock backend)
-npm run start
-# optionally: json-server --watch db.json --port 4000
-
-Project structure (example)
-/src
-  /components     # reusable UI components
-  /pages          # route pages: Home, Jobs, JobDetail, Dashboard, Login
-  /hooks          # custom hooks (useAuth, useJobs)
-  /contexts       # Context providers
-  /services       # API calls
-  /utils          # helpers and validators
-  /assets         # images, logos
-
-Customization ideas
-
-Add OAuth (Google/GitHub) sign-in
-
-Integrate real backend (Node/Express + MongoDB or PostgreSQL)
-
-Add notifications, email templates, and activity logs
-
-Improve search with Algolia or Elasticsearch
-
-Add analytics for employers and trending job tags
+🔹 AI-based job matching & recommendations
+🔹 Resume analyzer & skill scoring
+🔹 Interview scheduling module
+🔹 Live chat between employer & applicant
+🔹 Admin panel
