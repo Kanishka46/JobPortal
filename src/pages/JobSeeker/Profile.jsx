@@ -1,640 +1,287 @@
-// import React, { useState, useEffect } from "react";
-
-// const Profile = () => {
-//   const [profile, setProfile] = useState({
-//     fullName: "",
-//     phone: "",
-//     location: "",
-//     email: "",
-//     resumeUrl: "",
-//     workExperience: "",
-//     education: "",
-//     projects: "",
-//     skills: "",
-//     preferredRoles: "",
-//     industries: "",
-//     preferredLocation: "",
-//     salaryExpectations: "",
-//   });
-
-//   const [editMode, setEditMode] = useState(true);
-
-//   // ✅ Load from localStorage on mount
-//   useEffect(() => {
-//     const storedProfile = JSON.parse(localStorage.getItem("jobSeekerProfile"));
-//     if (storedProfile) {
-//       setProfile(storedProfile);
-//       setEditMode(false);
-//     }
-//   }, []);
-
-//   // ✅ Save to localStorage whenever profile changes
-//   const handleSave = () => {
-//     localStorage.setItem("jobSeekerProfile", JSON.stringify(profile));
-//     setEditMode(false);
-//     alert("Profile saved successfully!");
-//   };
-
-//   // ✅ Handle input updates
-//   const handleChange = (e) => {
-//     setProfile({ ...profile, [e.target.name]: e.target.value });
-//   };
-
-//   // ✅ Handle resume upload
-//   const handleResumeUpload = (e) => {
-//     const file = e.target.files[0];
-//     if (file) {
-//       const resumeUrl = URL.createObjectURL(file);
-//       setProfile({ ...profile, resumeUrl });
-//     }
-//   };
-
-//   return (
-//     <div style={styles.container}>
-//       <h2 style={styles.heading}>Job Seeker Profile</h2>
-
-//       <div style={styles.section}>
-//         <h3 style={styles.sectionTitle}>Personal & Contact Information</h3>
-
-//         <div style={styles.formGroup}>
-//           <label>Full Name:</label>
-//           <input
-//             type="text"
-//             name="fullName"
-//             value={profile.fullName}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Phone Number:</label>
-//           <input
-//             type="text"
-//             name="phone"
-//             value={profile.phone}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Location:</label>
-//           <input
-//             type="text"
-//             name="location"
-//             value={profile.location}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Email Address:</label>
-//           <input
-//             type="email"
-//             name="email"
-//             value={profile.email}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Upload Resume:</label>
-//           {editMode && (
-//             <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeUpload} />
-//           )}
-//           {profile.resumeUrl && (
-//             <p>
-//               <a href={profile.resumeUrl} target="_blank" rel="noreferrer">
-//                 View Uploaded Resume
-//               </a>
-//             </p>
-//           )}
-//         </div>
-//       </div>
-
-//       <div style={styles.section}>
-//         <h3 style={styles.sectionTitle}>Professional & Educational Background</h3>
-
-//         <div style={styles.formGroup}>
-//           <label>Work Experience:</label>
-//           <textarea
-//             name="workExperience"
-//             value={profile.workExperience}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.textarea}
-//             placeholder="E.g., Software Engineer at XYZ Corp (2020–2024)"
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Education:</label>
-//           <textarea
-//             name="education"
-//             value={profile.education}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.textarea}
-//             placeholder="E.g., B.Tech in CSE, ABC University, 2020"
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Projects:</label>
-//           <textarea
-//             name="projects"
-//             value={profile.projects}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.textarea}
-//             placeholder="E.g., Grocery Ordering System using MERN Stack"
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Skills:</label>
-//           <input
-//             type="text"
-//             name="skills"
-//             value={profile.skills}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//             placeholder="E.g., React, Node.js, JavaScript, Python"
-//           />
-//         </div>
-//       </div>
-
-//       <div style={styles.section}>
-//         <h3 style={styles.sectionTitle}>Job Preferences</h3>
-
-//         <div style={styles.formGroup}>
-//           <label>Preferred Roles:</label>
-//           <input
-//             type="text"
-//             name="preferredRoles"
-//             value={profile.preferredRoles}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Industries:</label>
-//           <input
-//             type="text"
-//             name="industries"
-//             value={profile.industries}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Preferred Location:</label>
-//           <input
-//             type="text"
-//             name="preferredLocation"
-//             value={profile.preferredLocation}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-
-//         <div style={styles.formGroup}>
-//           <label>Salary Expectations:</label>
-//           <input
-//             type="text"
-//             name="salaryExpectations"
-//             value={profile.salaryExpectations}
-//             onChange={handleChange}
-//             disabled={!editMode}
-//             style={styles.input}
-//           />
-//         </div>
-//       </div>
-
-//       <div style={styles.buttonGroup}>
-//         {editMode ? (
-//           <button style={styles.saveBtn} onClick={handleSave}>
-//             Save Profile
-//           </button>
-//         ) : (
-//           <button style={styles.editBtn} onClick={() => setEditMode(true)}>
-//             Edit Profile
-//           </button>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// // --- Styles ---
-// const styles = {
-//   container: {
-//     backgroundColor: "#ffffff",
-//     padding: "40px",
-//     borderRadius: "12px",
-//     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-//     margin: "40px auto",
-//     width: "80%",
-//     maxWidth: "900px",
-//   },
-//   heading: {
-//     textAlign: "center",
-//     color: "#0d6efd",
-//     fontSize: "28px",
-//     marginBottom: "30px",
-//   },
-//   section: {
-//     marginBottom: "30px",
-//   },
-//   sectionTitle: {
-//     fontSize: "20px",
-//     color: "#0d6efd",
-//     borderBottom: "2px solid #0d6efd",
-//     paddingBottom: "6px",
-//     marginBottom: "15px",
-//   },
-//   formGroup: {
-//     marginBottom: "15px",
-//   },
-//   input: {
-//     width: "100%",
-//     padding: "10px",
-//     border: "1px solid #ccc",
-//     borderRadius: "8px",
-//     fontSize: "14px",
-//   },
-//   textarea: {
-//     width: "100%",
-//     height: "80px",
-//     padding: "10px",
-//     border: "1px solid #ccc",
-//     borderRadius: "8px",
-//     fontSize: "14px",
-//   },
-//   buttonGroup: {
-//     textAlign: "center",
-//     marginTop: "20px",
-//   },
-//   editBtn: {
-//     backgroundColor: "#0d6efd",
-//     color: "white",
-//     padding: "10px 20px",
-//     border: "none",
-//     borderRadius: "8px",
-//     cursor: "pointer",
-//   },
-//   saveBtn: {
-//     backgroundColor: "#198754",
-//     color: "white",
-//     padding: "10px 20px",
-//     border: "none",
-//     borderRadius: "8px",
-//     cursor: "pointer",
-//   },
-// };
-
-// export default Profile;
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
-const Profile = () => {
+export default function Profile() {
   const [profile, setProfile] = useState({
     fullName: "",
-    phone: "",
-    location: "",
-    email: "",
-    resumeUrl: "",
-    workExperience: "",
+    summary: "",
+    keySkills: "",
+    experience: "",
     education: "",
-    projects: "",
-    skills: "",
-    preferredRoles: "",
-    industries: "",
-    preferredLocation: "",
-    salaryExpectations: "",
+    certifications: "",
+    languages: "",
+    careerObjective: "",
+    contactInfo: "",
+    github: "",
+    profilePic: null,
+    resume: null,
+    resumeName: ""
   });
 
-  const [editMode, setEditMode] = useState(true);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem("jobSeekerProfile"));
-    if (storedProfile) {
-      setProfile(storedProfile);
-      setEditMode(false);
+    const saved = JSON.parse(localStorage.getItem("jobSeekerProfile"));
+    if (saved) {
+      setProfile(saved);
+      if (saved.profilePic) setImagePreview(saved.profilePic);
     }
   }, []);
-
-  const handleSave = () => {
-    localStorage.setItem("jobSeekerProfile", JSON.stringify(profile));
-    setEditMode(false);
-    alert("Profile saved successfully!");
-  };
 
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfile({ ...profile, profilePic: reader.result });
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeImage = () => {
+    setProfile({ ...profile, profilePic: null });
+    setImagePreview(null);
+  };
+
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const resumeUrl = URL.createObjectURL(file);
-      setProfile({ ...profile, resumeUrl });
-    }
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfile({
+        ...profile,
+        resume: reader.result,
+        resumeName: file.name
+      });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeResume = () => {
+    setProfile({ ...profile, resume: null, resumeName: "" });
+  };
+
+  const saveProfile = () => {
+    localStorage.setItem("jobSeekerProfile", JSON.stringify(profile));
+    alert("✅ Profile saved successfully!");
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Job Seeker Profile</h2>
+    <Wrapper>
+      <Card>
+        <Title>Job Seeker Profile</Title>
 
-      {/* 🔹 Personal & Contact Info */}
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Personal & Contact Information</h3>
-
-        <div style={styles.gridWithGap}>
-          <div style={styles.formGroup}>
-            <label>Full Name:</label>
-            <input
-              type="text"
-              name="fullName"
-              value={profile.fullName}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
-
-          <div style={styles.formGroup}>
-            <label>Phone Number:</label>
-            <input
-              type="text"
-              name="phone"
-              value={profile.phone}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
-
-          <div style={styles.formGroup}>
-            <label>Location:</label>
-            <input
-              type="text"
-              name="location"
-              value={profile.location}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
-
-          <div style={styles.formGroup}>
-            <label>Email Address:</label>
-            <input
-              type="email"
-              name="email"
-              value={profile.email}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
-        </div>
-
-        <div style={styles.formGroup}>
-          <label>Upload Resume:</label>
-          {editMode && (
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={handleResumeUpload}
-            />
+        <PhotoSection>
+          {imagePreview ? (
+            <ProfileImg src={imagePreview} alt="Profile" />
+          ) : (
+            <Placeholder>Upload Photo</Placeholder>
           )}
-          {profile.resumeUrl && (
-            <p>
-              <a href={profile.resumeUrl} target="_blank" rel="noreferrer">
-                View Uploaded Resume
-              </a>
-            </p>
-          )}
-        </div>
-      </div>
 
-      {/* 🔹 Professional & Educational Background */}
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Professional & Educational Background</h3>
+          <ButtonGroup>
+            <UploadLabel>
+              📎 Upload
+              <input type="file" accept="image/*" hidden onChange={handleImageUpload} />
+            </UploadLabel>
 
-        <div style={styles.formGroup}>
-          <label>Work Experience:</label>
-          <textarea
-            name="workExperience"
-            value={profile.workExperience}
-            onChange={handleChange}
-            disabled={!editMode}
-            style={styles.textarea}
-            placeholder="E.g., Software Engineer at XYZ Corp (2020–2024)"
-          />
-        </div>
+            {imagePreview && (
+              <RemoveBtn onClick={removeImage}>❌ Remove</RemoveBtn>
+            )}
+          </ButtonGroup>
+        </PhotoSection>
 
-        <div style={styles.formGroup}>
-          <label>Education:</label>
-          <textarea
-            name="education"
-            value={profile.education}
-            onChange={handleChange}
-            disabled={!editMode}
-            style={styles.textarea}
-            placeholder="E.g., B.Tech in CSE, ABC University, 2020"
-          />
-        </div>
+        <Form>
+          <Label>Full Name</Label>
+          <Input name="fullName" value={profile.fullName} onChange={handleChange} />
 
-        <div style={styles.formGroup}>
-          <label>Projects:</label>
-          <textarea
-            name="projects"
-            value={profile.projects}
-            onChange={handleChange}
-            disabled={!editMode}
-            style={styles.textarea}
-            placeholder="E.g., Grocery Ordering System using MERN Stack"
-          />
-        </div>
+          <Label>Profile Summary</Label>
+          <Textarea name="summary" value={profile.summary} onChange={handleChange} />
 
-        <div style={styles.formGroup}>
-          <label>Skills:</label>
-          <input
-            type="text"
-            name="skills"
-            value={profile.skills}
-            onChange={handleChange}
-            disabled={!editMode}
-            style={styles.input}
-            placeholder="E.g., React, Node.js, JavaScript, Python"
-          />
-        </div>
-      </div>
+          <Label>Key Skills</Label>
+          <Input name="keySkills" value={profile.keySkills} onChange={handleChange} />
 
-      {/* 🔹 Job Preferences */}
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Job Preferences</h3>
+          <Label>Experience</Label>
+          <Textarea name="experience" value={profile.experience} onChange={handleChange} />
 
-        <div style={styles.gridWithGap}>
-          <div style={styles.formGroup}>
-            <label>Preferred Roles:</label>
-            <input
-              type="text"
-              name="preferredRoles"
-              value={profile.preferredRoles}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
+          <Label>Education</Label>
+          <Textarea name="education" value={profile.education} onChange={handleChange} />
 
-          <div style={styles.formGroup}>
-            <label>Industries:</label>
-            <input
-              type="text"
-              name="industries"
-              value={profile.industries}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
+          <Label>Certifications</Label>
+          <Textarea name="certifications" value={profile.certifications} onChange={handleChange} />
 
-          <div style={styles.formGroup}>
-            <label>Preferred Location:</label>
-            <input
-              type="text"
-              name="preferredLocation"
-              value={profile.preferredLocation}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
+          <Label>Languages</Label>
+          <Input name="languages" value={profile.languages} onChange={handleChange} />
 
-          <div style={styles.formGroup}>
-            <label>Salary Expectations:</label>
-            <input
-              type="text"
-              name="salaryExpectations"
-              value={profile.salaryExpectations}
-              onChange={handleChange}
-              disabled={!editMode}
-              style={styles.input}
-            />
-          </div>
-        </div>
-      </div>
+          <Label>Career Objective</Label>
+          <Textarea name="careerObjective" value={profile.careerObjective} onChange={handleChange} />
 
-      {/* 🔹 Buttons */}
-      <div style={styles.buttonGroup}>
-        {editMode ? (
-          <button style={styles.saveBtn} onClick={handleSave}>
-            Save Profile
-          </button>
-        ) : (
-          <button style={styles.editBtn} onClick={() => setEditMode(true)}>
-            Edit Profile
-          </button>
-        )}
-      </div>
-    </div>
+          <Label>Contact Information</Label>
+          <Textarea name="contactInfo" value={profile.contactInfo} onChange={handleChange} />
+
+          <Label>GitHub URL</Label>
+          <Input name="github" value={profile.github} onChange={handleChange} />
+
+          <Label>Upload Resume (PDF/DOC)</Label>
+          <ResumeRow>
+            <UploadLabel>
+              📄 Upload Resume
+              <input type="file" accept=".pdf,.doc,.docx" hidden onChange={handleResumeUpload} />
+            </UploadLabel>
+
+            {profile.resumeName && (
+              <>
+                <ResumeText>{profile.resumeName}</ResumeText>
+                <RemoveBtn onClick={removeResume}>❌</RemoveBtn>
+              </>
+            )}
+          </ResumeRow>
+
+          <SaveBtn onClick={saveProfile}>💾 Save Profile</SaveBtn>
+        </Form>
+      </Card>
+    </Wrapper>
   );
-};
+}
 
-// --- Styles ---
-const styles = {
-  container: {
-    backgroundColor: "#ffffff",
-    padding: "40px",
-    borderRadius: "12px",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-    margin: "40px auto",
-    width: "85%",
-    maxWidth: "950px",
-    transition: "all 0.3s ease",
-  },
-  heading: {
-    textAlign: "center",
-    color: "#0d6efd",
-    fontSize: "28px",
-    marginBottom: "30px",
-  },
-  section: {
-    backgroundColor: "#f9fbff",
-    padding: "25px",
-    borderRadius: "10px",
-    marginBottom: "30px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.05)",
-  },
-  sectionTitle: {
-    fontSize: "20px",
-    color: "#0d6efd",
-    borderBottom: "2px solid #0d6efd",
-    paddingBottom: "6px",
-    marginBottom: "20px",
-  },
-  formGroup: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  gridWithGap: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "25px",
-    marginBottom: "25px",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    fontSize: "14px",
-    marginTop: "5px",
-  },
-  textarea: {
-    width: "100%",
-    height: "80px",
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    fontSize: "14px",
-    marginTop: "5px",
-  },
-  buttonGroup: {
-    textAlign: "center",
-    marginTop: "20px",
-  },
-  editBtn: {
-    backgroundColor: "#0d6efd",
-    color: "white",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-  },
-  saveBtn: {
-    backgroundColor: "#198754",
-    color: "white",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-  },
-};
+/* ✅ Styled Components */
 
-export default Profile;
+const Wrapper = styled.div`
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+  min-height: 100vh;
+  background: #eef5ff;
+  font-family: Poppins, sans-serif;
+`;
+
+const Card = styled.div`
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  border: 1px solid #bcd2ff;
+  box-shadow: 0 6px 18px rgba(0, 85, 170, 0.18);
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  color: #0b5ed7;
+  font-weight: 700;
+  margin-bottom: 20px;
+`;
+
+const PhotoSection = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const ProfileImg = styled.img`
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid #0b5ed7;
+  object-fit: cover;
+`;
+
+const Placeholder = styled.div`
+  width: 140px;
+  height: 140px;
+  background: #f0f7ff;
+  border: 2px dashed #0b5ed7;
+  color: #0b5ed7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+`;
+
+const UploadLabel = styled.label`
+  background: #0b5ed7;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover {
+    background: #0846a3;
+  }
+`;
+
+const RemoveBtn = styled.button`
+  background: #d62828;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: #b01e1e;
+  }
+`;
+
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const Label = styled.label`
+  color: #003875;
+  font-weight: 600;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #a9caff;
+  background: #f9fbff;
+`;
+
+const Textarea = styled.textarea`
+  padding: 10px;
+  min-height: 80px;
+  border-radius: 8px;
+  border: 1px solid #a9caff;
+  background: #f9fbff;
+`;
+
+const ResumeRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const ResumeText = styled.span`
+  color: #0846a3;
+  font-weight: 600;
+`;
+
+const SaveBtn = styled.button`
+  padding: 12px;
+  margin-top: 10px;
+  background: #0b5ed7;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #0846a3;
+  }
+`;

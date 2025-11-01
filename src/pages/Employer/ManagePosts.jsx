@@ -1,247 +1,214 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
 
-const ManagePosts = () => {
+export default function ManagePosts() {
   const [jobs, setJobs] = useState([]);
-  const [formData, setFormData] = useState({
+  const [jobData, setJobData] = useState({
     title: "",
     company: "",
     location: "",
     salary: "",
-    description: "",
+    description: ""
   });
-  const [editingJobId, setEditingJobId] = useState(null);
+  const [editIndex, setEditIndex] = useState(null);
 
-  // ✅ Load jobs from localStorage on mount
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("jobs")) || [];
     setJobs(storedJobs);
   }, []);
 
-  // ✅ Save jobs to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-  }, [jobs]);
-
-  // Handle form input changes
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // ✅ Add or Update job
   const handleSubmit = (e) => {
     e.preventDefault();
+    let updatedJobs;
 
-    if (
-      !formData.title ||
-      !formData.company ||
-      !formData.location ||
-      !formData.salary ||
-      !formData.description
-    ) {
-      alert("⚠️ Please fill all fields!");
-      return;
-    }
-
-    if (editingJobId) {
-      // Update existing job
-      const updatedJobs = jobs.map((job) =>
-        job.id === editingJobId
-          ? { ...formData, id: editingJobId, date: job.date }
-          : job
-      );
-      setJobs(updatedJobs);
-      setEditingJobId(null);
+    if (editIndex !== null) {
+      updatedJobs = [...jobs];
+      updatedJobs[editIndex] = jobData;
+      setEditIndex(null);
     } else {
-      // Add new job
-      const newJob = {
-        ...formData,
-        id: Date.now(),
-        date: new Date().toLocaleDateString(),
-      };
-      setJobs([...jobs, newJob]);
+      updatedJobs = [...jobs, jobData];
     }
 
-    // Reset form
-    setFormData({
+    setJobs(updatedJobs);
+    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+
+    setJobData({
       title: "",
       company: "",
       location: "",
       salary: "",
-      description: "",
+      description: ""
     });
   };
 
-  // ✅ Edit a job
-  const handleEdit = (job) => {
-    setEditingJobId(job.id);
-    setFormData({
-      title: job.title,
-      company: job.company,
-      location: job.location,
-      salary: job.salary,
-      description: job.description,
-    });
+  const handleEdit = (index) => {
+    setJobData(jobs[index]);
+    setEditIndex(index);
   };
 
-  // ✅ Delete a job
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this job?")) {
-      setJobs(jobs.filter((job) => job.id !== id));
-    }
+  const handleDelete = (index) => {
+    const updatedJobs = jobs.filter((_, i) => i !== index);
+    setJobs(updatedJobs);
+    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>
-        {editingJobId ? "Edit Job Post" : "Add a New Job Post"}
-      </h2>
+    <Wrapper>
+      <Card>
+        <Title>{editIndex !== null ? "Edit Job Post" : "Create Job Post"}</Title>
 
-      {/* Job Form */}
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Job Title"
-          value={formData.title}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="text"
-          name="company"
-          placeholder="Company Name"
-          value={formData.company}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="text"
-          name="salary"
-          placeholder="Salary"
-          value={formData.salary}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <textarea
-          name="description"
-          placeholder="Job Description"
-          value={formData.description}
-          onChange={handleChange}
-          style={styles.textarea}
-        ></textarea>
+        <Form onSubmit={handleSubmit}>
+          <Input placeholder="Job Title" value={jobData.title} onChange={(e) => setJobData({ ...jobData, title: e.target.value })} required />
+          <Input placeholder="Company" value={jobData.company} onChange={(e) => setJobData({ ...jobData, company: e.target.value })} required />
+          <Input placeholder="Location" value={jobData.location} onChange={(e) => setJobData({ ...jobData, location: e.target.value })} required />
+          <Input placeholder="Salary" value={jobData.salary} onChange={(e) => setJobData({ ...jobData, salary: e.target.value })} required />
+          <Textarea placeholder="Job Description" value={jobData.description} onChange={(e) => setJobData({ ...jobData, description: e.target.value })} required />
+          
+          <Button type="submit">{editIndex !== null ? "Update Job" : "Post Job"}</Button>
+        </Form>
+      </Card>
 
-        <button type="submit" style={styles.addBtn}>
-          {editingJobId ? "Update Job" : "Add Job"}
-        </button>
-      </form>
-
-      {/* Job List */}
-      <h3 style={{ marginTop: "40px", color: "#0d6efd" }}>Your Posted Jobs</h3>
+      <SectionTitle>Job Listings</SectionTitle>
 
       {jobs.length === 0 ? (
-        <p style={{ textAlign: "center", color: "#777" }}>No jobs posted yet.</p>
+        <NoJobs>No job posts yet.</NoJobs>
       ) : (
-        <div style={styles.jobList}>
-          {jobs.map((job) => (
-            <div key={job.id} style={styles.jobCard}>
-              <h3 style={{ color: "#0d6efd" }}>{job.title}</h3>
-              <p><strong>Company:</strong> {job.company}</p>
-              <p><strong>Location:</strong> {job.location}</p>
-              <p><strong>Salary:</strong> {job.salary}</p>
-              <p>{job.description}</p>
-              <p style={{ color: "#6c757d" }}>
-                <em>Posted on: {job.date}</em>
-              </p>
-              <div>
-                <button onClick={() => handleEdit(job)} style={styles.editBtn}>
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(job.id)} style={styles.deleteBtn}>
-                  Delete
-                </button>
-              </div>
-            </div>
+        <JobsGrid>
+          {jobs.map((job, index) => (
+            <JobCard key={index}>
+              <JobTitle>{job.title}</JobTitle>
+              <p><b>Company:</b> {job.company}</p>
+              <p><b>Location:</b> {job.location}</p>
+              <p><b>Salary:</b> {job.salary}</p>
+              <Desc>{job.description}</Desc>
+
+              <BtnGroup>
+                <EditBtn onClick={() => handleEdit(index)}>Edit</EditBtn>
+                <DeleteBtn onClick={() => handleDelete(index)}>Delete</DeleteBtn>
+              </BtnGroup>
+            </JobCard>
           ))}
-        </div>
+        </JobsGrid>
       )}
-    </div>
+    </Wrapper>
   );
-};
+}
 
-// --- Inline Styles ---
-const styles = {
-  container: {
-    padding: "40px",
-    maxWidth: "800px",
-    margin: "0 auto",
-  },
-  heading: {
-    textAlign: "center",
-    color: "#0d6efd",
-    marginBottom: "20px",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-    marginBottom: "30px",
-  },
-  input: {
-    padding: "10px",
-    borderRadius: "6px",
-    border: "1px solid #ccc",
-  },
-  textarea: {
-    padding: "10px",
-    borderRadius: "6px",
-    border: "1px solid #ccc",
-    minHeight: "80px",
-  },
-  addBtn: {
-    backgroundColor: "#0d6efd",
-    color: "white",
-    padding: "10px",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
-  jobList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-    marginTop: "20px",
-  },
-  jobCard: {
-    backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 3px 6px rgba(0,0,0,0.1)",
-  },
-  editBtn: {
-    backgroundColor: "#ffc107",
-    color: "#000",
-    padding: "8px 14px",
-    border: "none",
-    borderRadius: "6px",
-    marginRight: "10px",
-    cursor: "pointer",
-  },
-  deleteBtn: {
-    backgroundColor: "#dc3545",
-    color: "white",
-    padding: "8px 14px",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
-};
+/************** Styled Components **************/
 
-export default ManagePosts;
+const Wrapper = styled.div`
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background: #eef5ff;
+  font-family: Arial, sans-serif;
+`;
+
+const Card = styled.div`
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #cfe0ff;
+  box-shadow: 0px 4px 15px rgba(0, 80, 180, 0.15);
+  margin-bottom: 30px;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  color: #0b5ed7;
+  font-size: 22px;
+  margin-bottom: 12px;
+`;
+
+const Form = styled.form`
+  display: grid;
+  gap: 12px;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #9cc0ff;
+  background: #f8faff;
+  font-size: 14px;
+`;
+
+const Textarea = styled.textarea`
+  padding: 10px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #9cc0ff;
+  background: #f8faff;
+  resize: none;
+`;
+
+const Button = styled.button`
+  background: #0b5ed7;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  &:hover { background: #0846a3; }
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 20px;
+  color: #004aad;
+  margin-bottom: 10px;
+`;
+
+const NoJobs = styled.p`
+  color: #555;
+`;
+
+const JobsGrid = styled.div`
+  display: grid;
+  gap: 15px;
+`;
+
+const JobCard = styled.div`
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #cfe0ff;
+  box-shadow: 0px 3px 10px rgba(0, 80, 180, 0.15);
+`;
+
+const JobTitle = styled.h4`
+  color: #004aad;
+  font-size: 18px;
+  margin-bottom: 6px;
+`;
+
+const Desc = styled.p`
+  color: #444;
+  margin: 6px 0;
+`;
+
+const BtnGroup = styled.div`
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+`;
+
+const EditBtn = styled.button`
+  background: #0b5ed7;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  &:hover { background: #0846a3; }
+`;
+
+const DeleteBtn = styled.button`
+  background: #d62828;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  &:hover { background: #a61b1b; }
+`;

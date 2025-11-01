@@ -20,6 +20,14 @@ import Applications from "./pages/JobSeeker/Applications";
 import EmployerDashboard from "./pages/Employer/EmployerDashboard";
 import ManagePosts from "./pages/Employer/ManagePosts";
 
+import EmployerProfile from "./pages/Employer/EmployerProfile";
+import JobList from "./pages/JobSeeker/JobList";
+import EmployerApplications from "./pages/Employer/EmployerApplications";
+
+
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminManageJobs from "./pages/Admin/AdminManageJobs";
+import ManageUsers from "./pages/Admin/ManageUsers";
 
 
 
@@ -34,27 +42,7 @@ const pageStyle = {
   backgroundColor: "#f8f9fa",
 };
 
-// --- dashboards for each role ---
-const JobSeekerDashboard = () => (
-  <div style={pageStyle}>
-    <h2>Welcome, Job Seeker</h2>
-    <p>Browse and apply for jobs!</p>
-  </div>
-);
 
-// const EmployerDashboard = () => (
-//   <div style={pageStyle}>
-//     <h2>Welcome, Employer</h2>
-//     <p>Post and manage job listings!</p>
-//   </div>
-// );
-
-const AdminDashboard = () => (
-  <div style={pageStyle}>
-    <h2>Welcome, Admin</h2>
-    <p>Manage users and monitor the platform.</p>
-  </div>
-);
 
 // --- main content wrapper ---
 function AppContent() {
@@ -78,6 +66,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/admin/managejobs" element={<AdminManageJobs />} />
 
 
         {/* Protected routes */}
@@ -107,6 +96,7 @@ function AppContent() {
 />
 
 
+
         <Route
           path="/employer/dashboard"
           element={
@@ -123,19 +113,67 @@ function AppContent() {
     </ProtectedRoute>
   }
 />
+<Route
+  path="/employer/profile"
+  element={
+    <ProtectedRoute allowedRoles={["employer"]}>
+      <EmployerProfile />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/employer/applications"
+  element={
+    <ProtectedRoute allowedRoles={["employer"]}>
+      <EmployerApplications />
+    </ProtectedRoute>
+  }
+/>
 
-        <Route
-          path="/admin/dashboard"
+<Route
+          path="/joblist"
           element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <AdminDashboard />
+            <ProtectedRoute allowedRoles={["jobseeker"]}>
+              <JobList />
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/admin/dashboard"
+  element={
+    <ProtectedRoute allowedRoles={["admin"]}>
+      <AdminDashboard />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/manageusers"
+  element={
+    <ProtectedRoute allowedRoles={["admin"]}>
+      <ManageUsers />
+    </ProtectedRoute>
+  }
+/>
+
+
+        
       </Routes>
 
       {/* ✅ Footer hidden on login/register */}
-      {!hideLayout && location.pathname !== "/jobseeker/profile" && <Footer />}
+     {/* ✅ Hide Footer only on login/register/profile AND manage-posts */}
+{!(
+  location.pathname === "/login" ||
+  location.pathname === "/register" ||
+  location.pathname === "/" ||
+  location.pathname === "/jobseeker/profile" ||
+  location.pathname === "/employer/profile" ||
+  location.pathname === "/employer/manage-posts"||
+  location.pathname==="/applications"||
+  location.pathname==="/admin/dashboard"||
+  location.pathname==="/admin/managejobs"||
+  location.pathname==="/admin/manageusers"
+) && <Footer />}
+
 
     </>
   );

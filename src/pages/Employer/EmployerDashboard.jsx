@@ -1,166 +1,119 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-const EmployerDashboard = () => {
+export default function EmployerDashboard() {
   const [jobs, setJobs] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterLocation, setFilterLocation] = useState("All");
-  const [sortOrder, setSortOrder] = useState("desc");
 
-  // ✅ Load jobs from localStorage
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("jobs")) || [];
     setJobs(storedJobs);
   }, []);
 
-  // ✅ Filter, search, and sort jobs
-  const filteredJobs = jobs
-    .filter((job) => {
-      const matchesSearch =
-        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.company.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesLocation =
-        filterLocation === "All" || job.location === filterLocation;
-      return matchesSearch && matchesLocation;
-    })
-    .sort((a, b) => {
-      if (sortOrder === "asc") {
-        return new Date(a.date) - new Date(b.date);
-      } else {
-        return new Date(b.date) - new Date(a.date);
-      }
-    });
-
-  // Unique locations for filter dropdown
-  const uniqueLocations = ["All", ...new Set(jobs.map((job) => job.location))];
-
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Employer Dashboard</h2>
+    <Wrapper>
+      <Title>Job Posts Overview</Title>
+      <Subtitle>All jobs you have posted</Subtitle>
 
-      {/* Search, Filter, Sort */}
-      <div style={styles.filters}>
-        <input
-          type="text"
-          placeholder="Search by job title or company..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={styles.searchInput}
-        />
-
-        <select
-          value={filterLocation}
-          onChange={(e) => setFilterLocation(e.target.value)}
-          style={styles.select}
-        >
-          {uniqueLocations.map((loc, index) => (
-            <option key={index} value={loc}>
-              {loc}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          style={styles.select}
-        >
-          <option value="desc">Newest First</option>
-          <option value="asc">Oldest First</option>
-        </select>
-      </div>
-
-      {/* Job List */}
-      {filteredJobs.length === 0 ? (
-        <p style={{ textAlign: "center", color: "#777" }}>
-          No jobs found. Try adjusting your filters.
-        </p>
+      {jobs.length === 0 ? (
+        <NoJobs>You have not posted any jobs yet.</NoJobs>
       ) : (
-        <div style={styles.jobList}>
-          {filteredJobs.map((job) => (
-            <div key={job.id} style={styles.jobCard}>
-              <h3 style={styles.jobTitle}>{job.title}</h3>
-              <p><strong>Company:</strong> {job.company}</p>
-              <p><strong>Location:</strong> {job.location}</p>
-              <p><strong>Salary:</strong> {job.salary}</p>
-              <p style={styles.description}>{job.description}</p>
-              <p style={styles.date}><em>Posted on: {job.date}</em></p>
-            </div>
+        <JobsGrid>
+          {jobs.map((job, index) => (
+            <JobCard key={index}>
+              <JobTitle>{job.title}</JobTitle>
+
+              <Field><b>Company:</b> {job.company}</Field>
+              <Field><b>Location:</b> {job.location}</Field>
+              <Field><b>Salary:</b> {job.salary}</Field>
+              <FieldDesc>{job.description}</FieldDesc>
+
+              <Status>✅ Active</Status>
+            </JobCard>
           ))}
-        </div>
+        </JobsGrid>
       )}
-
-      <div style={{ textAlign: "center", marginTop: "25px" }}>
-        <Link to="/employer/manage-posts" style={styles.manageLink}>
-          ✏️ Manage Your Posts
-        </Link>
-      </div>
-    </div>
+    </Wrapper>
   );
-};
+}
 
-// --- Inline Styles ---
-const styles = {
-  container: {
-    padding: "40px",
-    maxWidth: "900px",
-    margin: "0 auto",
-  },
-  heading: {
-    textAlign: "center",
-    color: "#0d6efd",
-    marginBottom: "30px",
-  },
-  filters: {
-    display: "flex",
-    gap: "10px",
-    justifyContent: "center",
-    marginBottom: "25px",
-    flexWrap: "wrap",
-  },
-  searchInput: {
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-    width: "250px",
-  },
-  select: {
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-  },
-  jobList: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-    gap: "20px",
-  },
-  jobCard: {
-    backgroundColor: "white",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 3px 8px rgba(0,0,0,0.1)",
-  },
-  jobTitle: {
-    color: "#0d6efd",
-    marginBottom: "8px",
-  },
-  description: {
-    color: "#333",
-    fontSize: "14px",
-    margin: "8px 0",
-  },
-  date: {
-    color: "#777",
-    fontSize: "13px",
-  },
-  manageLink: {
-    display: "inline-block",
-    backgroundColor: "#0d6efd",
-    color: "white",
-    textDecoration: "none",
-    padding: "10px 20px",
-    borderRadius: "6px",
-  },
-};
+/************** Styled Components **************/
 
-export default EmployerDashboard;
+const Wrapper = styled.div`
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px;
+  background: #eef5ff;
+  min-height: 100vh;
+  font-family: "Arial", sans-serif;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  color: #0b5ed7;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+`;
+
+const Subtitle = styled.p`
+  text-align: center;
+  font-size: 16px;
+  color: #4a6fa5;
+  margin-bottom: 25px;
+`;
+
+const JobsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+`;
+
+const JobCard = styled.div`
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #cfe0ff;
+  box-shadow: 0px 3px 14px rgba(0, 80, 180, 0.12);
+  transition: 0.3s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 18px rgba(0, 80, 180, 0.2);
+  }
+`;
+
+const JobTitle = styled.h4`
+  font-size: 20px;
+  font-weight: 700;
+  color: #004aad;
+  margin-bottom: 10px;
+`;
+
+const Field = styled.p`
+  margin: 5px 0;
+  font-size: 14px;
+  color: #003b7a;
+`;
+
+const FieldDesc = styled.p`
+  font-size: 14px;
+  margin-top: 5px;
+  color: #444;
+`;
+
+const NoJobs = styled.p`
+  text-align: center;
+  color: #004aad;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: fit-content;
+  margin: 50px auto;
+  border: 1px solid #9cc0ff;
+`;
+
+const Status = styled.div`
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b5ed7;
+`;
