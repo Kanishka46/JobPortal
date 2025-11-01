@@ -1,72 +1,89 @@
-🏆 Smart Job Portal Platform
+💼 Smart Job Portal System
 
-CareerConnect is a modern and intuitive Job Portal platform designed to connect job seekers with employers efficiently.
-It streamlines the recruitment process with features like smart job listings, user profiles, job applications, and company dashboards.
+A modern and intelligent web-based platform designed to bridge the gap between Job Seekers and Employers.
+With a clean UI, secure authentication, and smart job-matching workflows, this system simplifies and enhances recruitment for both parties.
 
-💡 Problem Statement
+✨ Features
 
-Traditional job application processes are slow, scattered across multiple channels, and lack structured profiles and real-time communication.
-Job seekers struggle to find relevant jobs, and employers face difficulty in filtering qualified candidates.
-
-CareerConnect solves this by offering a clean, centralized, and interactive job hunting & recruitment experience with a modern UI and smooth workflows.
-
-🚀 Features
 👨‍💻 For Job Seekers
 
-✅ Create profile & upload resume
-✅ Browse & search jobs by category, location, and company
-✅ Save jobs & Apply instantly
-✅ Track application status
-✅ Personalized dashboard
+Create & manage profile
+
+Upload resume & portfolio links
+
+Browse, search & filter jobs
+
+Apply for jobs instantly
+
+Track application status
+
+Bookmark / Save jobs
 
 🏢 For Employers
 
-✅ Company dashboard
-✅ Post & manage job listings
-✅ View applicants & shortlist candidates
-✅ Manage company profile
+Create company profile
 
-🌐 Platform Features
+Post & manage job listings
 
-✅ Secure login & authentication (Job Seeker / Employer)
-✅ Modern UI with responsive design
-✅ Role-based navigation UI
-✅ Job filtering, categories & search
-✅ Resume preview support
-✅ Notifications / status updates UI
-✅ Scalable for startups, enterprises & recruitment agencies
+View applicant profiles & resumes
 
-🧠 Tech Stack
-Layer	Technology
-Frontend	React + Vite
-Styling	Tailwind CSS + shadcn/ui
+Shortlist & manage candidates
+
+Manage recruitment pipeline
+
+🌟 Platform Highlights
+
+Secure dual-role login (Employer / Job Seeker)
+
+Modern & responsive UI (Mobile-friendly)
+
+Advanced job search, filter & sort
+
+Real-time interactive dashboards
+
+Clean & scalable architecture
+
+Reusable UI components
+
+🛠️ Tech Stack
+
+Category	Technology
+
+Frontend	React (Vite)
+
+Styling	Tailwind CSS, shadcn/ui
+
 Routing	React Router DOM
+
 State Management	Context API
-API Calls	Axios
-Hosting	Netlify / Vercel
 
-Backend content removed as requested ✅
+API Handling	Axios
 
-📂 Folder Structure (Frontend)
+Deployment	Netlify / Vercel
+
+✅ Backend tech intentionally excluded as requested
+
+📂 Folder Structure
 src/
+ ┣ assets/
  ┣ components/
- ┣ pages/
+ ┃ ┣ ui/
+ ┃ ┗ common/
  ┣ context/
  ┣ hooks/
+ ┣ pages/
  ┣ services/
- ┣ assets/
+ ┣ utils/
+ ┣ App.jsx
  ┗ main.jsx
 
-📸 UI Highlights
 
-✨ Modern clean UI
-📱 Fully responsive (mobile-first)
-🎨 Tailwind + shadcn components
 
-🚧 Future Enhancements
+📸 UI Preview
 
-🔹 AI-based job matching & recommendations
-🔹 Resume analyzer & skill scoring
-🔹 Interview scheduling module
-🔹 Live chat between employer & applicant
-🔹 Admin panel
+✅ Modern, minimal & professional UI
+✅ Fully responsive layouts
+✅ Interactive dashboards for Job Seekers & Employers
+✅ Smooth workflows & application tracking
+
+Screenshots coming soon... 😉
