@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# 🚀 Job Portal | React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📝 Overview
+This **Job Portal application** is a modern, responsive web platform built using **React**. It allows job seekers to explore and apply for jobs, while employers can post and manage job listings. The project focuses on **clean UI**, **scalable component structure**, and **efficient state management**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ⭐ Features
 
-### `npm start`
+### 👨‍💼 For Job Seekers
+- ✅ User registration and login  
+- ✅ Browse available job listings  
+- ✅ Search and filter jobs by role, location, and type  
+- ✅ View detailed job descriptions  
+- ✅ Apply for jobs and track application status  
+- ✅ Manage personal profile and resume  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🏢 For Employers
+- ✅ Post new job openings  
+- ✅ Edit or delete existing job listings  
+- ✅ Manage and review applications  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🌐 General
+- ✅ Responsive and user-friendly UI  
+- ✅ Client-side form validation  
+- ✅ Secure authenticated routes (if configured)  
+- ✅ Clean folder architecture for scalability  
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠 Tech Stack
 
-### `npm run build`
+| Category | Technology |
+|---------|-----------|
+| Frontend | **React** |
+| Routing | React Router |
+| State Management | Context API / Redux (optional) |
+| Styling | CSS / Tailwind / Styled Components |
+| Forms | React Hook Form / Custom Validation |
+| API | Fetch / Axios |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🏁 Conclusion
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This **React-based Job Portal** delivers a clean and efficient platform for job seekers and employers, with scalable architecture and user-friendly features. Enhancements will focus on adding advanced functionality and improving overall experience.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+✨ *Feel free to ⭐ this project and contribute!*
