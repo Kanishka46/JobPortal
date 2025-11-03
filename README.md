@@ -1,89 +1,50 @@
-💼 Smart Job Portal System
+# 🚀 Job Portal | React
 
-A modern and intelligent web-based platform designed to bridge the gap between Job Seekers and Employers.
-With a clean UI, secure authentication, and smart job-matching workflows, this system simplifies and enhances recruitment for both parties.
+## 📝 Overview
+This **Job Portal application** is a modern, responsive web platform built using **React**. It allows job seekers to explore and apply for jobs, while employers can post and manage job listings. The project focuses on **clean UI**, **scalable component structure**, and **efficient state management**.
 
-✨ Features
+---
 
-👨‍💻 For Job Seekers
+## ⭐ Features
 
-Create & manage profile
+### 👨‍💼 For Job Seekers
+- ✅ User registration and login  
+- ✅ Browse available job listings  
+- ✅ Search and filter jobs by role, location, and type  
+- ✅ View detailed job descriptions  
+- ✅ Apply for jobs and track application status  
+- ✅ Manage personal profile and resume  
 
-Upload resume & portfolio links
+### 🏢 For Employers
+- ✅ Post new job openings  
+- ✅ Edit or delete existing job listings  
+- ✅ Manage and review applications  
 
-Browse, search & filter jobs
+### 🌐 General
+- ✅ Responsive and user-friendly UI  
+- ✅ Client-side form validation  
+- ✅ Secure authenticated routes (if configured)  
+- ✅ Clean folder architecture for scalability  
 
-Apply for jobs instantly
+---
 
-Track application status
+## 🛠 Tech Stack
 
-Bookmark / Save jobs
+| Category | Technology |
+|---------|-----------|
+| Frontend | **React** |
+| Routing | React Router |
+| State Management | Context API / Redux (optional) |
+| Styling | CSS / Tailwind / Styled Components |
+| Forms | React Hook Form / Custom Validation |
+| API | Fetch / Axios |
 
-🏢 For Employers
+---
 
-Create company profile
+## 🏁 Conclusion
 
-Post & manage job listings
+This **React-based Job Portal** delivers a clean and efficient platform for job seekers and employers, with scalable architecture and user-friendly features. Enhancements will focus on adding advanced functionality and improving overall experience.
 
-View applicant profiles & resumes
-
-Shortlist & manage candidates
-
-Manage recruitment pipeline
-
-🌟 Platform Highlights
-
-Secure dual-role login (Employer / Job Seeker)
-
-Modern & responsive UI (Mobile-friendly)
-
-Advanced job search, filter & sort
-
-Real-time interactive dashboards
-
-Clean & scalable architecture
-
-Reusable UI components
-
-🛠️ Tech Stack
-
-Category	Technology
-
-Frontend	React (Vite)
-
-Styling	Tailwind CSS, shadcn/ui
-
-Routing	React Router DOM
-
-State Management	Context API
-
-API Handling	Axios
-
-Deployment	Netlify / Vercel
-
-✅ Backend tech intentionally excluded as requested
-
-📂 Folder Structure
-src/
- ┣ assets/
- ┣ components/
- ┃ ┣ ui/
- ┃ ┗ common/
- ┣ context/
- ┣ hooks/
- ┣ pages/
- ┣ services/
- ┣ utils/
- ┣ App.jsx
- ┗ main.jsx
-
-
-
-📸 UI Preview
-
-✅ Modern, minimal & professional UI
-✅ Fully responsive layouts
-✅ Interactive dashboards for Job Seekers & Employers
-✅ Smooth workflows & application tracking
-
-Screenshots coming soon... 😉
+---
+ ## For more info switch to Dev Branch
+✨ *Feel free to ⭐ this project and contribute!*
